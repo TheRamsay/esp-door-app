@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -24,6 +23,7 @@
 	}
 
     import "@fontsource/roboto";
+	import { invalidate } from '$app/navigation';
 </script>
 
 {#if session}
@@ -31,6 +31,12 @@
         <img src={session.user.user_metadata.avatar_url} alt="avatar" height="90">
         <p>{session.user.user_metadata.name}</p>
         <button on:click={signout}>Sign out</button>
+    </div>
+{:else}
+    <div>
+        <form action="/login?/login&provider=discord" method="POST">
+            <button>Login</button>
+        </form>
     </div>
 {/if}
 
