@@ -31,6 +31,8 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/roboto": "^5.0.1",
-		"@supabase/supabase-js": "^2.22.0"
+		"@supabase/supabase-js": "^2.22.0",
+		"normalize.css": "^8.0.1",
+		"svelte-material-icons": "^3.0.4"
 	}
 }

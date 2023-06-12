@@ -7,11 +7,11 @@ declare global {
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {
-			session: Session | null;
+			doors: Door[]
 		}
 		// interface Error {}
 		// interface Platform {}
 	}
 }
 
-export {};
+export { };
