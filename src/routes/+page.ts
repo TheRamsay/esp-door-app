@@ -1,3 +1,4 @@
+import { userStore } from '$lib/stores/userStore';
 import type { PageLoad } from './$types';
 
 const BACKEND_URL = "http://127.0.0.1:3000/api/v1";
