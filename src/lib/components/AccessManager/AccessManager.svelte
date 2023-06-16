@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { User } from '$lib/models/models';
+	import type { DoorPermission, User } from '$lib/models/models';
 
-	export let users: User[];
+	export let permissions: DoorPermission[];
 </script>
 
 <div>
@@ -10,10 +10,10 @@
 		<div class="add">add</div>
 	</div>
 	<div class="items">
-		{#each users as user}
+		{#each permissions as permission}
 			<div class="item">
-				<img src={user.avatar_url} alt="avatar" />
-				<div class="username">{user.username}</div>
+				<img src={permission.user_profile.avatar_url} alt="avatar" />
+				<div class="username">{permission.user_profile.username}</div>
 			</div>
 		{/each}
 	</div>

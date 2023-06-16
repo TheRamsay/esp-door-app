@@ -1,44 +1,21 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import AccessManager from '$lib/components/AccessManager/AccessManager.svelte';
-	import type { User } from '$lib/models/models';
+	import type { PageData } from './$types';
 
-	let users: User[] = [
-		{
-			id: 1,
-			username: 'PadakBahnak',
-			discord_id: '1',
-			avatar_url:
-				'https://cdn.discordapp.com/avatars/314659552505102347/670d84f30859f08730b21f1ea3ea0339.webp?size=80'
-		},
-		{
-			id: 2,
-			username: 'PetraHovnak',
-			discord_id: '1',
-			avatar_url:
-				'https://cdn.discordapp.com/avatars/314659552505102347/670d84f30859f08730b21f1ea3ea0339.webp?size=80'
-		},
-		{
-			id: 3,
-			username: 'siro',
-			discord_id: '1',
-			avatar_url:
-				'https://cdn.discordapp.com/avatars/314659552505102347/670d84f30859f08730b21f1ea3ea0339.webp?size=80'
-		}
-	];
+	export let data: PageData;
 </script>
 
 <div>
 	<div class="door-detail-title" />
 	<div class="row">
 		<div class="field">name:</div>
-		<div class="value">Ramsay</div>
+		<div class="value">{data.door.about}</div>
 	</div>
 	<div class="row">
 		<div class="field">owner:</div>
-		<div class="value">Ramsay</div>
+		<div class="value">{data.door.owner.username}</div>
 	</div>
-	<AccessManager {users} />
+	<AccessManager permissions={data.permissions} />
 	<div class="controls">
 		<div class="button">open</div>
 		<div class="button delete">delete</div>
