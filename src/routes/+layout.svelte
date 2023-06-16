@@ -4,11 +4,15 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import '../normalize.css';
-	import { getCurrentUser } from '$lib/api/authApi';
+	import { getCurrentUser } from '$lib/api/api';
 
 	onMount(async () => {
-		const user = await getCurrentUser();
-		userStore.set(user);
+		try {
+			const user = await getCurrentUser();
+			userStore.set(user);
+		} catch {
+			console.log('User not found');
+		}
 	});
 </script>
 

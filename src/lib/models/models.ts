@@ -10,3 +10,10 @@ export type Door = {
     about: string,
     owner: User
 }
+
+export type DoorPermission = {
+    door_id: number,
+    user_profile: User,
+    edit_permission: boolean,
+    open_permission: boolean
+};

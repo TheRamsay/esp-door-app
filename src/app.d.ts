@@ -7,7 +7,7 @@ declare global {
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {
-			doors: Door[]
+			// doors: Door[]
 		}
 		// interface Error {}
 		// interface Platform {}

@@ -1,12 +1,19 @@
 import { userStore } from '$lib/stores/userStore';
+import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
+import { getUserDoors, login } from '$lib/api/api';
 
-const BACKEND_URL = "http://127.0.0.1:3000/api/v1";
+export const load = (async () => {
+    const user = get(userStore);
+    if (user) {
 
-export const load = (async ({ fetch, params }) => {
-    const res = await fetch(`${BACKEND_URL}/doors/`);
+        return {
+            doors: await getUserDoors(user.id)
+        };
+    };
 
     return {
-        doors: await res.json()
+        doors: []
     };
 }) satisfies PageLoad;
