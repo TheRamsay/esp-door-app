@@ -1,7 +1,7 @@
 import type { Door, DoorPermission, User } from "$lib/models/models";
 import { redirect } from "@sveltejs/kit";
 
-const BACKEND_URL = "https://0794-86-49-224-49.ngrok-free.app/api/v1";
+const BACKEND_URL = "https://pelisek.theramsay.dev/api/v1";
 
 export const getCurrentUser = async (): Promise<User> => {
     try {
