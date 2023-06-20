@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Door } from '$lib/models/models';
-	import LockOpen from 'svelte-material-icons/LockOpen.svelte';
+	// import LockOpen from 'svelte-material-icons/LockOpen.svelte';
 
 	export let door: Door;
 </script>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="door-owner">👑 {door.owner.username}</div>
 	</div>
-	<div class="unlock-button"><LockOpen color={'black'} height={'24'} width={'24'} /></div>
+	<!-- <div class="unlock-button"><LockOpen color={'black'} height={'24'} width={'24'} /></div> -->
 </div>
 
 <style>
