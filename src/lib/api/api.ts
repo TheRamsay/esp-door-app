@@ -11,7 +11,7 @@ export const getCurrentUser = async (): Promise<User> => {
             headers: {
                 "Content-Type": "application/json"
             },
-            credentials: "include",
+            credentials: "include"
         })
 
         if (!res.ok) {
