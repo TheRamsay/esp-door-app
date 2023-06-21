@@ -6,8 +6,6 @@
 	import '../normalize.css';
 	import { getCurrentUser } from '$lib/api/api';
 
-	export const ssr = false;
-
 	onMount(async () => {
 		try {
 			const user = await getCurrentUser();
