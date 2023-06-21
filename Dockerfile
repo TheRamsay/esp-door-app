@@ -7,4 +7,5 @@ COPY pnpm-lock.yaml package.json package-lock.json ./
 # ADD . ./
 # RUN pnpm install --offline --dev
 
+RUN pnpm i
 CMD ["pnpm", "dev", "--host"]
