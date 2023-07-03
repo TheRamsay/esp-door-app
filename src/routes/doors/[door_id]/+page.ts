@@ -5,7 +5,7 @@ import { getDoor, getDoorPermissions } from '$lib/api/api';
 
 export const load = (async ({ params }) => {
     return {
-        door: await getDoor(+params.door_id),
-        permissions: await getDoorPermissions(+params.door_id)
+        door: getDoor(+params.door_id),
+        permissions: getDoorPermissions(+params.door_id)
     }
 }) satisfies PageLoad;

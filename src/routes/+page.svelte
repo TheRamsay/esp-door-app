@@ -9,7 +9,5 @@
 <div>
 	{#if $userStore !== undefined}
 		<DoorList doors={data.doors || []} />
-	{:else}
-		cooooooo?
 	{/if}
 </div>

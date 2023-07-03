@@ -4,12 +4,11 @@ import type { PageLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 import { getUserDoors, login } from '$lib/api/api';
 
-export const load = (async () => {
+export const load = (async ({params}) => {
     const user = get(userStore);
     if (user) {
-
         return {
-            doors: await getUserDoors(user.id)
+            doors: getUserDoors(user.id)
         };
     };
 

@@ -1,7 +1,7 @@
 export type User = {
     id: number,
     username: string,
-    avatar_url: string,
+    avatar: string | null,
     discord_id: string
 };
 

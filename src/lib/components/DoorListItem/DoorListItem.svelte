@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Door } from '$lib/models/models';
+	import { userStore } from '$lib/stores/userStore';
 	// import LockOpen from 'svelte-material-icons/LockOpen.svelte';
 
 	export let door: Door;
@@ -10,7 +11,8 @@
 		<div class="door-name">
 			{door.about}
 		</div>
-		<div class="door-owner">👑 {door.owner.username}</div>
+		<!-- TODO: Nebrat to z userStore ale z owner objektu -->
+		<div class="door-owner">👑 {$userStore?.username}</div>
 	</div>
 	<!-- <div class="unlock-button"><LockOpen color={'black'} height={'24'} width={'24'} /></div> -->
 </div>

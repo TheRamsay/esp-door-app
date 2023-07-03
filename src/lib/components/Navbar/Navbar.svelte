@@ -3,14 +3,15 @@
 	import { userStore } from '../../stores/userStore';
 	import { login, logout } from '$lib/api/api';
 	import { goto } from '$app/navigation';
+	import { getUserAvatarUrl } from '$lib/utils';
 
 	$: logged = $userStore !== undefined;
 </script>
 
 <div class="navbar">
-	{#if logged}
+	{#if logged && $userStore}
 		<div class="profile">
-			<img src={$userStore?.avatar_url} alt="avatar" />
+			<img src={getUserAvatarUrl($userStore)} alt="avatar" />
 			<span>{$userStore?.username}</span>
 		</div>
 		<button
