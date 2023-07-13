@@ -1,7 +1,7 @@
 <script>
 	import Navbar from '$lib/components/Navbar/Navbar.svelte';
-	import '../app.css';
-	import '../normalize.css';
+	import '../app.postcss';
+	// import '../normalize.css';
 </script>
 
 <Navbar />

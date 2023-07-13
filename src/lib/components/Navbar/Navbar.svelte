@@ -4,34 +4,28 @@
 	import { login, logout } from '$lib/api/api';
 	import { goto } from '$app/navigation';
 	import { getUserAvatarUrl } from '$lib/utils';
-
+	import { Button } from '$components/ui/button';
+	import { Avatar, AvatarFallback, AvatarImage } from '$components/ui/avatar';
 	$: logged = $userStore !== undefined;
 </script>
 
 <div class="navbar">
 	{#if logged && $userStore}
 		<div class="profile">
-			<img src={getUserAvatarUrl($userStore)} alt="avatar" />
 			<span>{$userStore?.username}</span>
+			<Avatar>
+				<AvatarImage src={getUserAvatarUrl($userStore)} alt="@shadcn" />
+				<AvatarFallback>Coooo</AvatarFallback>
+			</Avatar>
 		</div>
-		<button
-			class="logout"
-			on:click={() => {
-				goto(logout());
-			}}>logout</button
-		>
+		<Button variant="outline" on:click={() => goto(logout())}>AHOJ 🙋‍♂️</Button>
 	{:else}
-		<button
-			class="login"
-			on:click={() => {
-				goto(login());
-			}}>prihlas se 🐐</button
-		>
+		<Button variant="outline" on:click={() => goto(login())}>prihlas se 🐐</Button>
 	{/if}
 </div>
 
 <style>
-	.navbar {
+	/* .navbar {
 		margin-bottom: 20px;
 		padding: 15px;
 	}
@@ -45,5 +39,5 @@
 		border-radius: 50px;
 		margin-right: 10px;
 		height: 42px;
-	}
+	} */
 </style>
