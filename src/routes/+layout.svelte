@@ -1,10 +1,9 @@
 <script>
 	import Navbar from '$lib/components/Navbar/Navbar.svelte';
 	import '../app.postcss';
-	// import '../normalize.css';
 </script>
 
-<Navbar />
-<main>
+<main class="p-5">
+	<Navbar />
 	<slot />
 </main>

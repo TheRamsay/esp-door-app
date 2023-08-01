@@ -1,50 +1,19 @@
 <script lang="ts">
+	import Button from '$components/ui/button/Button.svelte';
 	import type { Door } from '$lib/models/models';
 	import DoorListItem from '../DoorListItem/DoorListItem.svelte';
 
 	export let doors: Door[];
 </script>
 
-<div class="door-list">
-	<div class="door-list-header">
-		<div class="door-list-title">Pelíšky</div>
-		<div class="add-door-button">add</div>
+<div>
+	<div class="flex justify-between">
+		<div class="text-xl">Pelíšky</div>
+		<Button class="bg-green-600 text-zinc-900">add</Button>
 	</div>
-	<div class="door-list-items">
+	<div class="flex flex-col items-center">
 		{#each doors as door}
 			<DoorListItem {door} />
 		{/each}
 	</div>
 </div>
-
-<style>
-    .door-list {
-        margin: 0 20px;
-    }
-	.add-door-button {
-		text-transform: uppercase;
-	}
-
-	.door-list-title {
-		font-weight: bold;
-		font-size: 24px;
-        margin-bottom: 60px;
-	}
-
-    .door-list-header {
-        display: flex;
-        justify-content: space-between;
-        margin: 0px 15px;
-    }
-
-	.add-door-button {
-		background-color: #71bb65;
-        color: black;
-		border-radius: 5px;
-		height: 36px;
-		width: 64px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-</style>

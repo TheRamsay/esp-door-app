@@ -13,7 +13,9 @@ export type Door = {
 
 export type DoorPermission = {
     door_id: number,
+    user_profile_id: User,
     user_profile: User,
+    door: Door,
     edit_permission: boolean,
     open_permission: boolean
 };

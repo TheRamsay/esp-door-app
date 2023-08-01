@@ -1,58 +1,20 @@
 <script lang="ts">
 	import type { Door } from '$lib/models/models';
-	import { userStore } from '$lib/stores/userStore';
-	// import LockOpen from 'svelte-material-icons/LockOpen.svelte';
+	import Button from '$components/ui/button/Button.svelte';
+	import { goto } from '$app/navigation';
 
 	export let door: Door;
 </script>
 
-<div class="door-list-item">
-	<div class="item-info">
-		<div class="door-name">
+<div
+	class="bg-zinc-800 p-4 rounded-md flex justify-between w-4/5 cursor-pointer"
+	on:click={() => goto(`/doors/${door.id}`)}
+>
+	<div>
+		<div class="font-bold">
 			{door.about}
 		</div>
-		<!-- TODO: Nebrat to z userStore ale z owner objektu -->
-		<div class="door-owner">👑 {$userStore?.username}</div>
+		<div class="">👑 {door.owner.username}</div>
 	</div>
-	<!-- <div class="unlock-button"><LockOpen color={'black'} height={'24'} width={'24'} /></div> -->
+	<Button class="bg-gray-900">unlock</Button>
 </div>
-
-<style>
-	.door-list-item {
-		background-color: #353434;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
-		padding: 10px;
-		height: 52px;
-		cursor: pointer;
-		line-height: 1.5rem;
-	}
-
-	.item-info {
-		width: 90%;
-	}
-	.door-name {
-		font-size: 16px;
-		font-weight: bold;
-	}
-
-	.door-owner {
-		font-size: 15px;
-	}
-
-	.unlock-button {
-		background-color: #71bb65;
-		border-radius: 5px;
-		height: 36px;
-		width: 36px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.unlock-button:hover {
-		background-color: #44863a;
-	}
-</style>

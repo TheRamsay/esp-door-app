@@ -6,38 +6,19 @@
 	import { getUserAvatarUrl } from '$lib/utils';
 	import { Button } from '$components/ui/button';
 	import { Avatar, AvatarFallback, AvatarImage } from '$components/ui/avatar';
-	$: logged = $userStore !== undefined;
+	import { page } from '$app/stores';
 </script>
 
-<div class="navbar">
-	{#if logged && $userStore}
-		<div class="profile">
-			<span>{$userStore?.username}</span>
+<div class="flex justify-between mb-10">
+	{#if $page.data.user}
+		<Button variant="outline" on:click={() => goto(logout())}>Logout 🙋‍♂️</Button>
+		<div class="flex items-center">
+			<span class="mr-2 font-semibold text-orange-400">{$page.data.user.username}</span>
 			<Avatar>
-				<AvatarImage src={getUserAvatarUrl($userStore)} alt="@shadcn" />
+				<AvatarImage src={$page.data.user.avatar} alt="@shadcn" />
 				<AvatarFallback>Coooo</AvatarFallback>
 			</Avatar>
 		</div>
-		<Button variant="outline" on:click={() => goto(logout())}>AHOJ 🙋‍♂️</Button>
-	{:else}
-		<Button variant="outline" on:click={() => goto(login())}>prihlas se 🐐</Button>
 	{/if}
 </div>
 
-<style>
-	/* .navbar {
-		margin-bottom: 20px;
-		padding: 15px;
-	}
-
-	.profile {
-		display: flex;
-		align-items: center;
-	}
-
-	img {
-		border-radius: 50px;
-		margin-right: 10px;
-		height: 42px;
-	} */
-</style>

@@ -1,5 +1,3 @@
-import { userStore } from '$lib/stores/userStore';
-import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
 import { getDoor, getDoorPermissions } from '$lib/api/api';
 
