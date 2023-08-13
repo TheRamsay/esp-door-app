@@ -12,11 +12,11 @@
 	</div>
 	<div>
 		<span>owner:</span>
-		<span>ramsay</span>
+		<span>{data?.door?.owner?.username ?? 'cooo'}</span>
 	</div>
 	<AccessManager permissions={data.permissions} />
 	<div class="flex justify-between">
-		<Button class="bg-red-600">delete</Button>
-		<Button class="bg-green-700">unlock</Button>
+		<Button variant="destructive">delete</Button>
+		<Button class="">unlock</Button>
 	</div>
 </div>

@@ -7,7 +7,7 @@
 </script>
 
 <div
-	class="bg-zinc-800 p-4 rounded-md flex justify-between w-4/5 cursor-pointer"
+	class="bg-zinc-800 p-4 rounded-md flex justify-between w-full cursor-pointer my-2 w-full"
 	on:click={() => goto(`/doors/${door.id}`)}
 >
 	<div>
@@ -16,5 +16,5 @@
 		</div>
 		<div class="">👑 {door.owner.username}</div>
 	</div>
-	<Button class="bg-gray-900">unlock</Button>
+	<Button>unlock</Button>
 </div>
