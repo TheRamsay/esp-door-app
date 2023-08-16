@@ -7,12 +7,15 @@
 	import { Button } from '$components/ui/button';
 	import { Avatar, AvatarFallback, AvatarImage } from '$components/ui/avatar';
 	import { page } from '$app/stores';
-	import { LogOut } from 'lucide-svelte';
+	import { LogOut, Home } from 'lucide-svelte';
 </script>
 
 <div class="flex justify-between mb-10">
 	{#if $page.data.user}
-		<Button on:click={() => goto(logout())}>Logout<LogOut class="ml-2 h-4 w-4" /></Button>
+		<!-- <Button on:click={() => goto(logout())}>Logout<LogOut class="ml-2 h-4 w-4" /></Button> -->
+		<div on:click={() => goto('/')}>
+			<Home class="cursor-pointer" />
+		</div>
 		<div class="flex items-center cursor-pointer">
 			<span class="mr-2 font-semibold text-orange-400">{$page.data.user.username}</span>
 			<Avatar>

@@ -41,7 +41,6 @@ export const getDoor = async (door_id: number): Promise<Door> => {
 }
 
 export const getDoorPermissions = async (door_id: number): Promise<DoorPermission[]> => {
-    console.log(`[permissions] door_id is ${door_id}`);
     const data = await fetch(`${BACKEND_URL}/doors/${door_id}/permissions`, {
         method: "GET",
         mode: "cors",
@@ -66,6 +65,34 @@ export const getUserDoors = async (user_id: number): Promise<Door[]> => {
 
     return data.json();
 }
+
+export const getUserDoorAccessHistory = async (door_id: number, user_id: number): Promise<Door[]> => {
+    const data = await fetch(`${BACKEND_URL}/doors/${door_id}/acess_history/${user_id}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    })
+
+    return data.json();
+}
+
+export const getUserDoorPermission = async (user_id: number): Promise<Door[]> => {
+    const data = await fetch(`${BACKEND_URL}/users/${user_id}/doors`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    })
+
+    return data.json();
+}
+
+
 
 export const login = () => {
     return `${BACKEND_URL}/auth/discord`;

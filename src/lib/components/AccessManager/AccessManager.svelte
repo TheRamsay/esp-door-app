@@ -13,6 +13,7 @@
 	import Label from '$components/ui/label/Label.svelte';
 	import Switch from '$components/ui/switch/Switch.svelte';
 	import type { DoorPermission, User } from '$lib/models/models';
+	import { getUserAvatarUrl } from '$lib/utils';
 	import Select from 'svelte-select/Select.svelte';
 
 	export let permissions: DoorPermission[];
@@ -22,11 +23,11 @@
 	console.log(permissions);
 </script>
 
-<div class="min-h-[100px]">
+<div class="min-h-[100px] bg-slate-500 p-4 rounded-sm my-4">
 	<div class="flex justify-between">
-		<div>Manage access</div>
+		<div class="text-xl">Manage access</div>
 		<div class="flex justify-around">
-			<Button>logs</Button>
+			<Button class="mr-4">logs</Button>
 			<Dialog modal={true}>
 				<DialogTrigger class={buttonVariants({ variant: 'default' })}>Add</DialogTrigger>
 				<DialogContent class="sm:max-w-[425px]">
@@ -55,13 +56,17 @@
 			</Dialog>
 		</div>
 	</div>
-	<div class="flex flex-col items-center">
+	<div class="mt-4 flex flex-col items-center">
 		{#each permissions as permission}
 			<div
-				class="flex items-center justify-start bg-neutral-700 p-3 mb-3 rounded-lg w-full"
+				class="flex items-center justify-start bg-neutral-700 p-3 mb-3 rounded-lg w-full cursor-pointer"
 				on:click={() => goto(`/doors/${permission.door_id}/users/${permission.user_profile_id}`)}
 			>
-				<img class="rounded-full h-12 mr-2" src={permission.user_profile.avatar} alt="avatar" />
+				<img
+					class="rounded-full h-12 mr-2"
+					src={getUserAvatarUrl(permission.user_profile)}
+					alt="avatar"
+				/>
 				<div>{permission.user_profile.username}</div>
 			</div>
 		{/each}
