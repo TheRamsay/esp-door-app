@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import Button from '$components/ui/button/Button.svelte';
 	import Label from '$components/ui/label/Label.svelte';
-	import { login } from '$lib/api/api';
+	import { login } from '$lib/apiClient';
 	import DoorList from '$lib/components/DoorList/DoorList.svelte';
 	import { LogIn } from 'lucide-svelte';
 	import type { PageData } from './$types';

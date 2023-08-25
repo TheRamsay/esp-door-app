@@ -17,10 +17,13 @@
 	import Select from 'svelte-select/Select.svelte';
 
 	export let permissions: DoorPermission[];
+	let selectedUser: { value: number; label: string };
 
 	const saveAccess = () => {};
 
-	console.log(permissions);
+	const deleteDoors = async () => {
+		const res = await fetch("")
+	};
 </script>
 
 <div class="min-h-[100px] bg-slate-500 p-4 rounded-sm my-4">
@@ -38,7 +41,7 @@
 					<div class="grid gap-4 py-4">
 						<div class="grid grid-cols-4 items-center gap-4">
 							<Label class="text-right">User</Label>
-							<UserSelect />
+							<UserSelect bind:value={selectedUser} />
 						</div>
 						<div class="grid grid-cols-4 items-center gap-4">
 							<Label class="text-right">Open</Label>

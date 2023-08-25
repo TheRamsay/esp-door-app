@@ -3,6 +3,8 @@
 	import { getUserAvatarUrl } from '$lib/utils';
 	import Select from 'svelte-select/Select.svelte';
 
+	export let value: { value: number; label: string };
+
 	const loadUsers = async (): Promise<{ value: number; label: User }[]> => {
 		const res = await fetch('http://localhost:3000/api/v1/users');
 		const data: User[] = await res.json();
@@ -25,6 +27,7 @@
 	class="col-span-3"
 	loadOptions={loadUsers}
 	itemFilter={filterItems}
+	bind:value
 	--list-background="hsl(var(--background))"
 	--item-hover-bg="hsl(var(--accent))"
 	--border="1px hsl(var(--input)) solid"

@@ -19,6 +19,8 @@
 
 	export let doors: Door[];
 
+	let open = false;
+	$: console.log(`Open changed to: ${open}`);
 	let about: string;
 	let userId: { value: number; label: string };
 
@@ -33,6 +35,8 @@
 				about: about
 			})
 		});
+
+		open = false;
 	};
 </script>
 
@@ -40,7 +44,7 @@
 	<div class="w-4/5">
 		<div class="flex justify-between w-full mb-10">
 			<div class="text-3xl">Pelíšky</div>
-			<Dialog modal={true}>
+			<Dialog modal={true} {open}>
 				<DialogTrigger class={buttonVariants({ variant: 'default' })}>Add</DialogTrigger>
 				<DialogContent class="sm:max-w-[425px]">
 					<DialogHeader>
@@ -52,7 +56,7 @@
 							<Label class="text-right">Name</Label>
 							<Input bind:value={about} id="name" class="col-span-3" />
 							<Label class="text-right">Owner</Label>
-							<UserSelect />
+							<UserSelect bind:value={userId} />
 						</div>
 					</div>
 					<DialogFooter>
@@ -62,9 +66,13 @@
 			</Dialog>
 		</div>
 		<div class="flex flex-col items-center w-full">
-			{#each doors as door}
-				<DoorListItem {door} />
-			{/each}
+			{#if doors.length > 0}
+				{#each doors as door}
+					<DoorListItem {door} />
+				{/each}
+			{:else}
+				<div class="mt-5 text-2xl">Create your first Pelíšek</div>
+			{/if}
 		</div>
 	</div>
 </div>
