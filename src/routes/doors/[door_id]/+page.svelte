@@ -3,14 +3,15 @@
 	import AccessManager from '$lib/components/AccessManager/AccessManager.svelte';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
+	import { deleteDoor } from '$lib/apiClient';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
-	const deleteDoor = async () => {
-		const res = await fetch(`http://localhost:3000/api/v1/doors/${$page.params.door_id}`, {
-			method: 'DELETE'
-		});
-	};
+	const handleDelete = () => {
+		deleteDoor(+$page.params.door_id);
+		goto("/");
+	}
 </script>
 
 <div>
@@ -21,9 +22,9 @@
 		<span>owner:</span>
 		<span>{data?.door?.owner?.username ?? 'cooo'}</span>
 	</div>
-	<AccessManager permissions={data.permissions} />
+	<AccessManager permissions={data.permissions} doorId={+$page.params.door_id} />
 	<div class="flex justify-between">
 		<Button class="">unlock</Button>
-		<Button on:click={deleteDoor} variant="destructive">delete</Button>
+		<Button on:click={handleDelete} variant="destructive">delete</Button>
 	</div>
 </div>

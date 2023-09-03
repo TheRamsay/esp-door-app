@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Door, User } from '$lib/models/models';
+	import type { Door } from '$lib/models/models';
 	import DoorListItem from '../DoorListItem/DoorListItem.svelte';
 	import { Button, buttonVariants } from '$components/ui/button';
 	import {
@@ -13,27 +13,19 @@
 	} from '$components/ui/dialog';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-	import Select from 'svelte-select';
-	import { getUserAvatarUrl } from '$lib/utils';
 	import UserSelect from '$components/UserSelect/UserSelect.svelte';
+	import { saveDoor } from '$lib/apiClient';
 
 	export let doors: Door[];
 
 	let open = false;
-	$: console.log(`Open changed to: ${open}`);
 	let about: string;
 	let userId: { value: number; label: string };
 
-	const saveDoor = async () => {
-		const res = await fetch('http://localhost:3000/api/v1/doors', {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			method: 'POST',
-			body: JSON.stringify({
-				owner_id: userId.value,
-				about: about
-			})
+	const handleSave = async () => {
+		await saveDoor({
+			owner_id: userId.value,
+			about: about
 		});
 
 		open = false;
@@ -60,7 +52,7 @@
 						</div>
 					</div>
 					<DialogFooter>
-						<Button on:click={saveDoor} type="submit">Save</Button>
+						<Button on:click={handleSave} type="submit">Save</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>

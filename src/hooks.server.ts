@@ -1,6 +1,4 @@
-import { getCurrentUser } from '$lib/api/api'
 import type { Handle } from '@sveltejs/kit'
-import type { HandleFetch } from '@sveltejs/kit';
 
 const BACKEND_URL = "http://localhost:3000/api/v1";
 

@@ -1,5 +1,5 @@
+import { getDoor, getDoorPermissions } from '$lib/apiClient';
 import type { PageLoad } from './$types';
-import { getDoor, getDoorPermissions } from '$lib/api/api';
 
 export const load = (async ({ params }) => {
     return {

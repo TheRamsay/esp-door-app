@@ -1,103 +1,96 @@
-import type { Door, DoorPermission, User } from "$lib/models/models";
-import { redirect } from "@sveltejs/kit";
+import type { Door, DoorPermission, PostDoor, PostDoorPermission, User } from "$lib/models/models";
+import type { HttpMethod } from "@sveltejs/kit/types/private";
+import { PUBLIC_API_URL } from "$env/static/public";
 
-const BACKEND_URL = "http://localhost:3000/api/v1";
-// const BACKEND_URL = "https://pelisek.theramsay.dev/api/v1";
+export async function fetchWithDefaults(url: string, options?: RequestInit): Promise<any> {
+    const res = await fetch(`${PUBLIC_API_URL}${url}`, {
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        ...options
+    });
 
-export const getCurrentUser = async (): Promise<User> => {
-    try {
-        const res = await fetch(`${BACKEND_URL}/users/@me`, {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include"
-        })
-
-        if (!res.ok) {
-            throw Error("KOKOT SI");
-        }
-
-        return res.json();
-
-    } catch (e) {
-        throw e;
+    if (!res.ok) {
+        console.error(await res.json())
+        throw new Error("Request failed")
     }
+
+    return res.json();
+}
+
+export function fetchByMethod(url: string, method: HttpMethod, options?: RequestInit): Promise<any> {
+    return fetchWithDefaults(url, {
+        ...options,
+        method: method,
+    });
+}
+
+export function _get(url: string, options?: RequestInit): Promise<any> {
+    return fetchByMethod(url, "GET", options);
+}
+
+export function _post(url: string, body?: any, options?: RequestInit): Promise<any> {
+    console.info(`[POST] url: ${url} | body: ${JSON.stringify(body)}`)
+    return fetchByMethod(url, "POST", {
+        ...options,
+        body: JSON.stringify(body)
+    });
+}
+
+export function _delete(url: string, options?: RequestInit): Promise<any> {
+    return fetchByMethod(url, "DELETE", options);
+}
+
+export function deleteDoor(doorId: number): Promise<any> {
+    return _delete(`/doors/${doorId}`)
+}
+
+export function saveDoor(door: PostDoor): Promise<any> {
+    return _post("/doors", door);
+}
+
+export function getCurrentUser(): Promise<User> {
+    return _get("/users/@me");
+}
+
+export function getUsers(): Promise<User[]> {
+    return _get(`/users`);
+}
+
+export function getDoor(doorId: number): Promise<Door> {
+    return _get(`/doors/${doorId}`);
+}
+
+export function getDoorPermissions(doorId: number): Promise<DoorPermission[]> {
+    return _get(`/doors/${doorId}/permissions`);
+}
+
+export function getUserDoors(userId: number): Promise<Door[]> {
+    return _get(`/users/${userId}/doors`);
+}
+
+export function getDoorAccessHistoryByUser(doorId: number, userId: number): Promise<Door[]> {
+    return _get(`/doors/${doorId}/access_history/${userId}`);
+}
+
+export function getUserDoorPermission(doorId: number, userId: number): Promise<DoorPermission> {
+    return _get(`/doors/${doorId}/permissions/${userId}`);
+}
+
+export function saveDoorPermission(doorPermission: PostDoorPermission): Promise<any> {
+    return _post(`/doors/${doorPermission.door_id}/permissions`, doorPermission);
+}
+
+export function deleteDoorPermission(doorId: number, userId: number): Promise<any> {
+    return _delete(`/doors/${doorId}/permissions/${userId}`);
+}
+
+export const LoginRedirect = () => {
+    return `${PUBLIC_API_URL}/auth/discord`;
 };
 
-export const getDoor = async (door_id: number): Promise<Door> => {
-    console.log(`[doors] door_id is ${door_id}`);
-    const data = await fetch(`${BACKEND_URL}/doors/${door_id}`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    })
-
-    return data.json();
-}
-
-export const getDoorPermissions = async (door_id: number): Promise<DoorPermission[]> => {
-    const data = await fetch(`${BACKEND_URL}/doors/${door_id}/permissions`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    })
-
-    return data.json();
-};
-
-export const getUserDoors = async (user_id: number): Promise<Door[]> => {
-    const data = await fetch(`${BACKEND_URL}/users/${user_id}/doors`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    })
-
-    return data.json();
-}
-
-export const getUserDoorAccessHistory = async (door_id: number, user_id: number): Promise<Door[]> => {
-    const data = await fetch(`${BACKEND_URL}/doors/${door_id}/acess_history/${user_id}`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    })
-
-    return data.json();
-}
-
-export const getUserDoorPermission = async (user_id: number): Promise<Door[]> => {
-    const data = await fetch(`${BACKEND_URL}/users/${user_id}/doors`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include"
-    })
-
-    return data.json();
-}
-
-
-
-export const login = () => {
-    return `${BACKEND_URL}/auth/discord`;
-};
-
-export const logout = () => {
-    return `${BACKEND_URL}/logout`;
+export const LogoutRedirect = () => {
+    return `${PUBLIC_API_URL}/logout`;
 };

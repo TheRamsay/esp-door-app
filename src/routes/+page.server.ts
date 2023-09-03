@@ -1,4 +1,4 @@
-import { getUserDoors } from '$lib/api/api';
+import { getUserDoors } from '$lib/apiClient';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {

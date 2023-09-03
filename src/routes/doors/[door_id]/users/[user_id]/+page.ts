@@ -1,10 +1,9 @@
 import type { PageLoad } from './$types';
-import { getDoor, getDoorPermissions } from '$lib/api/api';
-import type { DoorPermission } from '$lib/models/models';
+import { getDoorAccessHistoryByUser, getUserDoorPermission } from '$lib/apiClient';
 
 export const load = (async ({ params }) => {
 	return {
-		permission: { door: { about: "ramsay pelisek" }, user_profile: { username: "theramsay" }, edit_permission: true, open_permission: true } as DoorPermission,
-		accesHistory: ["ahoj", "coze", "vooofrr"]
+		permission: getUserDoorPermission(+params.door_id, +params.user_id),
+		accesHistory: getDoorAccessHistoryByUser(+params.door_id, +params.user_id)
 	}
 }) satisfies PageLoad;

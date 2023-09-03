@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getUsers } from '$lib/apiClient';
 	import type { User } from '$lib/models/models';
 	import { getUserAvatarUrl } from '$lib/utils';
 	import Select from 'svelte-select/Select.svelte';
@@ -6,8 +7,7 @@
 	export let value: { value: number; label: string };
 
 	const loadUsers = async (): Promise<{ value: number; label: User }[]> => {
-		const res = await fetch('http://localhost:3000/api/v1/users');
-		const data: User[] = await res.json();
+		const data: User[] = await getUsers();
 		return data.map((u) => {
 			return {
 				value: u.id,

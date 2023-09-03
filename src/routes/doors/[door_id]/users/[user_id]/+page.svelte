@@ -4,19 +4,11 @@
 	import Switch from '$components/ui/switch/Switch.svelte';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
+	import { deleteDoorPermission } from '$lib/apiClient';
 
 	export let data: PageData;
 
 	let changedData = false;
-
-	const deleteUserAcces = async () => {
-		const res = await fetch(
-			`http://localhost:3000/api/v1/doors/${$page.params.door_id}/permissions/${$page.params.user_id}`,
-			{
-				method: 'DELETE'
-			}
-		);
-	};
 </script>
 
 <div class="text-gray-300 m-10">
@@ -58,6 +50,6 @@
 	</div>
 	<div class="mt-8 flex justify-between">
 		<Button disabled={changedData}>save</Button>
-		<Button variant="destructive" on:click={deleteUserAcces}>delete</Button>
+		<Button variant="destructive" on:click={() => deleteDoorPermission(+$page.params.door_id, +$page.params.user_id)}>delete</Button>
 	</div>
 </div>

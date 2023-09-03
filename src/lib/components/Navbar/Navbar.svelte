@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { redirect } from '@sveltejs/kit';
 	import { userStore } from '../../stores/userStore';
-	import { login, logout } from '$lib/apiClient';
+	import { LoginRedirect, LogoutRedirect } from '$lib/apiClient';
 	import { goto } from '$app/navigation';
 	import { getUserAvatarUrl } from '$lib/utils';
 	import { Button } from '$components/ui/button';

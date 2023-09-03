@@ -12,18 +12,16 @@
 	import Input from '$components/ui/input/Input.svelte';
 	import Label from '$components/ui/label/Label.svelte';
 	import Switch from '$components/ui/switch/Switch.svelte';
+	import { saveDoorPermission } from '$lib/apiClient';
 	import type { DoorPermission, User } from '$lib/models/models';
 	import { getUserAvatarUrl } from '$lib/utils';
-	import Select from 'svelte-select/Select.svelte';
 
 	export let permissions: DoorPermission[];
+	export let doorId: number;
+
 	let selectedUser: { value: number; label: string };
-
-	const saveAccess = () => {};
-
-	const deleteDoors = async () => {
-		const res = await fetch("")
-	};
+	let openPermission: boolean;
+	let editPermission: boolean;
 </script>
 
 <div class="min-h-[100px] bg-slate-500 p-4 rounded-sm my-4">
@@ -45,15 +43,24 @@
 						</div>
 						<div class="grid grid-cols-4 items-center gap-4">
 							<Label class="text-right">Open</Label>
-							<Switch />
+							<Switch bind:rootChecked={openPermission} />
 						</div>
 						<div class="grid grid-cols-4 items-center gap-4">
 							<Label class="text-right">Edit</Label>
-							<Switch />
+							<Switch bind:rootChecked={editPermission} />
 						</div>
 					</div>
 					<DialogFooter>
-						<Button on:click={saveAccess} type="submit">Save</Button>
+						<Button
+							on:click={() =>
+								saveDoorPermission({
+									user_profile_id: selectedUser.value,
+									door_id: doorId,
+									open_permission: openPermission,
+									edit_permission: editPermission
+								})}
+							type="submit">Save</Button
+						>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>
